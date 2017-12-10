@@ -24,6 +24,7 @@ app.configure(function () {
 	app.use(express.bodyParser());
 	app.use(checkAuth);
 	app.use(app.router);
+	app.use(express.static('static'));
 	app.set('view engine', 'jade');
 	app.set('view options', { layout: false });
 
