@@ -1,6 +1,7 @@
 var express = require('express');
 
 var port = 8999;
+var port2 = 1234;
 
 var app = express.createServer();
 
@@ -9,7 +10,7 @@ function checkAuth (req, res, next) {
 
 	// don't serve /secure to those not logged in
 	// you should add to this list, for each and every secure url
-	if (req.url === '/secure' && (!req.session || !req.session.authenticated)) {
+	if ((req.url === '/secure' || req.url === '/breeds') && (!req.session || !req.session.authenticated)) {
 		res.render('unauthorised', { status: 403 });
 		return;
 	}
@@ -34,3 +35,26 @@ require('./lib/routes.js')(app);
 
 app.listen(port);
 console.log('Node listening on port %s', port);
+
+
+
+
+var app2 = express.createServer();
+
+app2.configure(function () {
+
+	app2.use(express.cookieParser());
+	app2.use(express.session({ secret: 'example' }));
+	app2.use(express.bodyParser());
+	app2.use(checkAuth);
+	app2.use(app2.router);
+	app2.use(express.static('static'));
+	app2.set('view engine', 'jade');
+	app2.set('view options', { layout: false });
+
+});
+
+require('./lib/routes.js')(app2, true);
+
+app2.listen(port2);
+console.log('Node listening on port %s', port2);
