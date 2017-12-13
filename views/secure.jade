@@ -14,6 +14,8 @@ html(lang='en')
 				li: a(href="/secure") Secure content
 				li: a(href="/welcome") Welcome page
 				li: a(href="/logout") Logout
+		form(action='/secure',method='post')
+			input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
 		script(src="https://unpkg.com/jquery@3.2.1/dist/jquery.js")
 		script(src="https://unpkg.com/axios/dist/axios.min.js")
 		script(src="test.js")

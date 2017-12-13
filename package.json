@@ -9,7 +9,10 @@
     "url": "git@gist.github.com:1581536.git"
   },
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "automation": "testcafe safari tests/login.js --app 'node app.js'",
+    "test-qa": "QA=true npm run automation",
+    "test-slow": "npm run automation -- --speed 0.1"
   },
   "engines": {
     "node": "~0.4.12"
@@ -21,6 +24,8 @@
   },
   "devDependencies": {
     "axios": "^0.17.1",
-    "nock": "^9.1.4"
+    "nock": "^9.1.4",
+    "testcafe": "^0.18.5",
+    "testcafe-browser-provider-ievms": "^0.1.2"
   }
 }
